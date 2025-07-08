@@ -132,3 +132,121 @@ export function formatNumber(num: number): string {
   if (num % 1 === 0) return num.toString();
   return num.toFixed(2);
 }
+
+export const defaultBiomes: Biome[] = [
+  {
+    id: 'forest',
+    name: 'Mystic Forest',
+    description: 'A lush forest filled with ancient magic',
+    rarity: 8,
+    enemies: ['goblin', 'wolf'],
+    weather: ['clear', 'rain'],
+  },
+  {
+    id: 'desert',
+    name: 'Scorching Desert',
+    description: 'An endless expanse of burning sand',
+    rarity: 5,
+    enemies: ['scorpion', 'sandworm'],
+    weather: ['clear', 'sandstorm'],
+  },
+  {
+    id: 'dungeon',
+    name: 'Ancient Dungeon',
+    description: 'Dark corridors filled with forgotten treasures',
+    rarity: 2,
+    enemies: ['skeleton', 'lich'],
+    weather: ['dark'],
+  },
+];
+
+export const defaultEnemies: Enemy[] = [
+  {
+    id: 'goblin',
+    name: 'Forest Goblin',
+    health: 25,
+    maxHealth: 25,
+    damage: 5,
+    armor: 1,
+    size: 'small',
+    spawnConditions: {
+      timeOfDay: 'any',
+      weather: [],
+      biomes: ['forest'],
+    },
+    lootTable: [],
+    behavior: 'aggressive',
+    spawnWeight: 10,
+  },
+  {
+    id: 'wolf',
+    name: 'Shadow Wolf',
+    health: 40,
+    maxHealth: 40,
+    damage: 8,
+    armor: 2,
+    size: 'medium',
+    spawnConditions: {
+      timeOfDay: 'night',
+      weather: [],
+      biomes: ['forest'],
+    },
+    lootTable: [],
+    behavior: 'pack',
+    spawnWeight: 6,
+  },
+  {
+    id: 'skeleton',
+    name: 'Ancient Skeleton',
+    health: 35,
+    maxHealth: 35,
+    damage: 12,
+    armor: 3,
+    size: 'medium',
+    spawnConditions: {
+      timeOfDay: 'any',
+      weather: [],
+      biomes: ['dungeon'],
+    },
+    lootTable: [],
+    behavior: 'guard',
+    spawnWeight: 8,
+  },
+];
+
+export const defaultWeather: Weather[] = [
+  {
+    id: 'clear',
+    name: 'Clear Skies',
+    description: 'Perfect weather for adventuring',
+    effects: [],
+  },
+  {
+    id: 'rain',
+    name: 'Heavy Rain',
+    description: 'Rain reduces movement speed but increases magic regeneration',
+    effects: [
+      {
+        id: 'rain-movement',
+        name: 'Reduced Movement',
+        description: 'Movement speed reduced by 25%',
+        type: 'stat',
+        value: -0.25,
+      },
+    ],
+  },
+  {
+    id: 'sandstorm',
+    name: 'Raging Sandstorm',
+    description: 'Reduces visibility and increases critical hit chance',
+    effects: [
+      {
+        id: 'sandstorm-crit',
+        name: 'Sharp Sand',
+        description: 'Critical hit chance increased by 15%',
+        type: 'stat',
+        value: 0.15,
+      },
+    ],
+  },
+];

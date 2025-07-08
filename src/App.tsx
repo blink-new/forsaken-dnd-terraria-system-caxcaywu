@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { CharacterSheet } from './components/CharacterSheet';
 import { GameInterface } from './components/GameInterface';
-import { Character } from './types/game';
-import { createDefaultCharacter } from './utils/gameUtils';
+import { WorldEditor } from './components/WorldEditor';
+import { Character, Enemy } from './types/game';
+import { createDefaultCharacter, defaultEnemies } from './utils/gameUtils';
 
 function App() {
   const [character, setCharacter] = useState<Character>(createDefaultCharacter());
-  const [currentView, setCurrentView] = useState<'character' | 'game'>('character');
+  const [enemies, setEnemies] = useState<Enemy[]>(defaultEnemies);
+  const [currentView, setCurrentView] = useState<'character' | 'game' | 'world'>('character');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -37,12 +39,26 @@ function App() {
           >
             Game World
           </button>
+          <button
+            onClick={() => setCurrentView('world')}
+            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              currentView === 'world'
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+            }`}
+          >
+            World Editor
+          </button>
         </div>
 
-        {currentView === 'character' ? (
+        {currentView === 'character' && (
           <CharacterSheet character={character} onCharacterChange={setCharacter} />
-        ) : (
-          <GameInterface character={character} onCharacterChange={setCharacter} />
+        )}
+        {currentView === 'game' && (
+          <GameInterface character={character} onCharacterChange={setCharacter} enemies={enemies} />
+        )}
+        {currentView === 'world' && (
+          <WorldEditor enemies={enemies} onEnemiesChange={setEnemies} />
         )}
       </div>
     </div>
